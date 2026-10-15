@@ -9,7 +9,6 @@ PRODUCTS_DIR="$BUILD_DIR/Products"
 
 echo "🔨 Building TrainBotIOS (Release, iphoneos)..."
 rm -rf "$BUILD_DIR"
-mkdir -p "$BUILD_DIR/Payload" "$PRODUCTS_DIR"
 
 xcodebuild \
   -project "$PROJECT_PATH" \
@@ -23,8 +22,9 @@ xcodebuild \
   CODE_SIGNING_REQUIRED=NO \
   CODE_SIGNING_ALLOWED=NO \
   AD_HOC_CODE_SIGNING_ALLOWED=YES \
-  clean build
+  build
 
+mkdir -p "$BUILD_DIR/Payload"
 APP_PATH="$PRODUCTS_DIR/TrainBotIOS.app"
 if [[ ! -d "$APP_PATH" ]]; then
   APP_PATH=$(find "$BUILD_DIR" -name "TrainBotIOS.app" -type d | head -n 1)
