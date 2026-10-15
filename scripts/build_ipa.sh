@@ -5,7 +5,6 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PROJECT_PATH="$ROOT_DIR/ios/TrainBotIOS/TrainBotIOS.xcodeproj"
 BUILD_DIR="$ROOT_DIR/build"
-DERIVED_DATA="$BUILD_DIR/DerivedData"
 PRODUCTS_DIR="$BUILD_DIR/Products"
 
 echo "🔨 Building TrainBotIOS (Release, iphoneos)..."
@@ -17,7 +16,8 @@ xcodebuild \
   -target "TrainBotIOS" \
   -configuration Release \
   -sdk iphoneos \
-  -derivedDataPath "$DERIVED_DATA" \
+  SYMROOT="$BUILD_DIR/sym" \
+  OBJROOT="$BUILD_DIR/obj" \
   CONFIGURATION_BUILD_DIR="$PRODUCTS_DIR" \
   CODE_SIGN_IDENTITY="" \
   CODE_SIGNING_REQUIRED=NO \

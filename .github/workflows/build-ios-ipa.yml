@@ -6,6 +6,7 @@ on:
     branches: [ main, master ]
     paths:
       - 'ios/**'
+      - 'scripts/build_ipa.sh'
       - '.github/workflows/build-ios-ipa.yml'
 
 jobs:
