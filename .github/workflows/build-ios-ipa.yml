@@ -1,0 +1,29 @@
+name: Build TrainBot iOS IPA (Sideloadly / AltStore / SideStore)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'ios/**'
+      - '.github/workflows/build-ios-ipa.yml'
+
+jobs:
+  build-ipa:
+    name: Build Unsigned TrainBotIOS.ipa on macOS
+    runs-on: macos-14
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build TrainBotIOS.app (Release, unsigned for Sideloadly / AltStore)
+        run: |
+          chmod +x scripts/build_ipa.sh
+          ./scripts/build_ipa.sh
+
+      - name: Upload TrainBotIOS.ipa Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TrainBotIOS-v8.0-unsigned-ipa
+          path: build/TrainBotIOS.ipa
+          retention-days: 90
